@@ -1,8 +1,6 @@
 package com.jiashn.springsecurity.handler;
 
 import com.alibaba.fastjson.JSONObject;
-import com.jiashn.springsecurity.utils.JsonResult;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -33,7 +31,8 @@ public class SelfDefineAuthenticationSuccessHandler implements AuthenticationSuc
         JSONObject res = new JSONObject();
         res.put("user",user);
         writer.write(String.valueOf(res));
-        response.flushBuffer();
+        writer.flush();
+        writer.close();
         response.sendRedirect(forWardUrl);
     }
 }

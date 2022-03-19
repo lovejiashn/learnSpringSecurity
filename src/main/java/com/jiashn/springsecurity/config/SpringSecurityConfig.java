@@ -1,6 +1,9 @@
 package com.jiashn.springsecurity.config;
 
+import com.jiashn.springsecurity.handler.SelfDefineAccessDeniedHandler;
+import com.jiashn.springsecurity.handler.SelfDefineAuthenticationFailureHandler;
 import com.jiashn.springsecurity.handler.SelfDefineAuthenticationSuccessHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +23,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${sso.security.successUrl}")
     private String successUrl;
 
+    @Autowired
+    private SelfDefineAccessDeniedHandler accessDeniedHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -29,7 +35,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 //指定自定义登录页面
                 .loginPage("/login.html")
-                .successHandler(new SelfDefineAuthenticationSuccessHandler(successUrl));
+                .successHandler(new SelfDefineAuthenticationSuccessHandler(successUrl))
+                .failureHandler(new SelfDefineAuthenticationFailureHandler("/error.html"));
 
         http.authorizeRequests()
                 //登录页面，失败页面不需要进行验证
@@ -39,6 +46,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         //关闭csrf防护
         http.csrf().disable();
+
+        http.exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler);
     }
 
     @Bean
