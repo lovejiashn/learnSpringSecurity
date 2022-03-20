@@ -41,7 +41,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 //登录页面，失败页面不需要进行验证
                 .antMatchers("/login.html").permitAll()
+                .antMatchers().access("hasRole(\"admin\")")
                 //指定所有页面都必须进行验证后才能访问
+                //.anyRequest().access("@userVisitPermissionsServiceImpl.hasPermission(httpServletRequest,authentication)");
                 .anyRequest().authenticated();
 
         //关闭csrf防护

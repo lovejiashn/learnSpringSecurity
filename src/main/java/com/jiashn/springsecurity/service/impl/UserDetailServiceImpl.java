@@ -1,4 +1,4 @@
-package com.jiashn.springsecurity.service;
+package com.jiashn.springsecurity.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
