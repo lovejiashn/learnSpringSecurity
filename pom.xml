@@ -18,6 +18,7 @@
         <mybatisPlus.version>3.2.0</mybatisPlus.version>
         <mysql.version>8.0.25</mysql.version>
         <fastJson.version>1.2.73</fastJson.version>
+        <fastJson.version>1.2.73</fastJson.version>
     </properties>
     <dependencies>
         <dependency>
@@ -28,7 +29,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
+        <!-- 添加JDBC依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>

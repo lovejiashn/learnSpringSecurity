@@ -64,6 +64,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedHandler(accessDeniedHandler);
         //记住我
         http.rememberMe()
+                .tokenValiditySeconds(60)
+                .rememberMeParameter("rememberMe")
+                .alwaysRemember(true)
                 .userDetailsService(userDetailsService)
                 .tokenRepository(repository);
     }
