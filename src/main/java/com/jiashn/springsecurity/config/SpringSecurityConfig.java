@@ -31,10 +31,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     private SelfDefineAccessDeniedHandler accessDeniedHandler;
     @Autowired
     private UserDetailServiceImpl userDetailsService;
-    @Autowired
+  /*  @Autowired
     private PersistentTokenRepository repository;
     @Autowired
-    private DataSource dataSource;
+    private DataSource dataSource;*/
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -62,13 +62,16 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler);
-        //记住我
+       /* //记住我
         http.rememberMe()
                 .tokenValiditySeconds(60)
                 .rememberMeParameter("rememberMe")
                 .alwaysRemember(true)
                 .userDetailsService(userDetailsService)
-                .tokenRepository(repository);
+                .tokenRepository(repository);*/
+
+        http.logout()
+                .logoutSuccessUrl("/login.html");
     }
 
     @Bean
@@ -76,12 +79,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
+   /* @Bean
     public PersistentTokenRepository persistentTokenRepository(){
         JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
         jdbcTokenRepository.setDataSource(dataSource);
         //自动在数据库创建表
        jdbcTokenRepository.setCreateTableOnStartup(true);
         return jdbcTokenRepository;
-    }
+    }*/
 }
