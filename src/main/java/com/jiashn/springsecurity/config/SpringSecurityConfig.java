@@ -44,21 +44,21 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 //当发现login时，则认为是登录，需与表单提交的地址一样，才能执行自定义的UserDetailsServiceImpl
                 .loginProcessingUrl("/login")
                 //指定自定义登录页面
-                .loginPage("/login.html")
+                .loginPage("/showLogin")
                // .successHandler(new SelfDefineAuthenticationSuccessHandler(successUrl))
                 .defaultSuccessUrl("/toMain",true)
                 .failureHandler(new SelfDefineAuthenticationFailureHandler("/error.html"));
 
         http.authorizeRequests()
                 //登录页面，失败页面不需要进行验证
-                .antMatchers("/login.html").permitAll()
+                .antMatchers("/showLogin").permitAll()
                 .antMatchers().access("hasRole(\"admin\")")
                 //指定所有页面都必须进行验证后才能访问
                 //.anyRequest().access("@userVisitPermissionsServiceImpl.hasPermission(httpServletRequest,authentication)");
                 .anyRequest().authenticated();
 
         //关闭csrf防护
-        http.csrf().disable();
+        //http.csrf().disable();
 
         http.exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler);
